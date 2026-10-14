@@ -176,12 +176,23 @@ class TelemapperApp(App):
                 status.styles.color = COLOR_RED
                 return
 
-            for idx, (signal_id, chan_cell, sig_cell) in enumerate(rows, 1):
+            # Dedupe: t.me `?before=` pagination overlaps on the boundary
+            # message, so the same message id can appear twice. The table
+            # requires unique row keys; the ledger already sealed both pages.
+            seen = set()
+            unique_rows = []
+            for signal_id, chan_cell, sig_cell in rows:
+                if signal_id in seen:
+                    continue
+                seen.add(signal_id)
+                unique_rows.append((signal_id, chan_cell, sig_cell))
+
+            for idx, (signal_id, chan_cell, sig_cell) in enumerate(unique_rows, 1):
                 # FIX: was key=s_//S_DATA["ID"] (NameError crash).
                 # The detail panel looks rows up by this exact key.
                 table.add_row(str(idx), chan_cell, sig_cell, key=signal_id)
 
-            status.update(f"{len(rows)} SIGNALS LIVE")
+            status.update(f"{len(unique_rows)} SIGNALS LIVE")
             status.styles.color = COLOR_GREEN
 
         except Exception as e:

@@ -6,3 +6,5 @@ jellyfish
 textual
 pyfiglet
 typing_extensions
+psycopg2-binary
+fpdf2
