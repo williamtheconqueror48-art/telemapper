@@ -2,7 +2,7 @@
 
 Map public Telegram channels. Follow the forwards. Keep the receipts.
 
-Live API: **https://telemapper-3g0c4495f-bodhi12.vercel.app**
+Live API: **https://telemapper.vercel.app**
 
 ![TELEMAPPER terminal UI](docs/screenshot.svg)
 
@@ -46,7 +46,7 @@ python test_neet.py             # live NEET keyword probe
 
 ## API reference
 
-Base URL: `https://telemapper-3g0c4495f-bodhi12.vercel.app`
+Base URL: `https://telemapper.vercel.app`
 
 - `GET /api/health` — status and persistence mode (`postgres` or `memory`).
 - `GET /api/discover?keyword=NEET&limit=10` — probe the five handle patterns for a keyword. Persists a search row and logs each discovered channel.
@@ -58,13 +58,13 @@ Base URL: `https://telemapper-3g0c4495f-bodhi12.vercel.app`
 Example:
 
 ```
-curl "https://telemapper-3g0c4495f-bodhi12.vercel.app/api/discover?keyword=NEET&limit=5"
+curl "https://telemapper.vercel.app/api/discover?keyword=NEET&limit=5"
 # -> {"keyword":"NEET","channels":[...],"count":5,"search_id":1}
 
-curl "https://telemapper-3g0c4495f-bodhi12.vercel.app/api/channel/durov?pages=1"
+curl "https://telemapper.vercel.app/api/channel/durov?pages=1"
 # -> {"channel":"durov","message_count":20,"messages":[...],"forensic":{...},"search_id":2}
 
-curl "https://telemapper-3g0c4495f-bodhi12.vercel.app/api/export?format=pdf&search_id=2" -o evidence.pdf
+curl "https://telemapper.vercel.app/api/export?format=pdf&search_id=2" -o evidence.pdf
 ```
 
 ## Postgres (Neon) setup
