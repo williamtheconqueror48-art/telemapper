@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+*.db
+*.log
+telemapper_ledger.jsonl

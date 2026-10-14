@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+httpx
+beautifulsoup4
+jellyfish
+textual
+pyfiglet
+typing_extensions
