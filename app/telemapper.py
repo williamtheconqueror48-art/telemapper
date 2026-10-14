@@ -38,6 +38,12 @@ def candidate_tag(channel):
     return "[W]"
 
 
+# jellyfish renamed jaro_winkler -> jaro_winkler_similarity in 1.x;
+# support both spellings.
+_jaro_winkler = getattr(jellyfish, "jaro_winkler_similarity",
+                        getattr(jellyfish, "jaro_winkler", None))
+
+
 class TelemapperApp(App):
     CSS = f"""
     Screen {{
@@ -147,7 +153,7 @@ class TelemapperApp(App):
             candidates = await crawler.discover_by_keyword(target, limit=10)
             # Rank candidates by name similarity to the query.
             candidates.sort(
-                key=lambda c: jellyfish.jaro_winkler(target.lower(), c.lower()),
+                key=lambda c: _jaro_winkler(target.lower(), c.lower()),
                 reverse=True,
             )
             rows = []
